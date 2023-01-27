@@ -10,10 +10,10 @@
     },
     "servers": [
         {
-            "url": "{schema}://www.laravel9-zeus-base-project.local/api",
+            "url": "{protocol}://www.laravel9-zeus-base-project.local/api",
             "description": "local server",
             "variables": {
-                "schema": {
+                "protocol": {
                     "enum": [
                         "https",
                         "http"
@@ -23,10 +23,10 @@
             }
         },
         {
-            "url": "{schema}://laravel9-zeus-base-project.vision/api/api",
+            "url": "{protocol}://laravel9-zeus-base-project.vision/api/api",
             "description": "development server",
             "variables": {
-                "schema": {
+                "protocol": {
                     "enum": [
                         "https",
                         "http"
@@ -36,10 +36,10 @@
             }
         },
         {
-            "url": "{schema}://laravel9-zeus-base-project.zeus.vision/api/api",
+            "url": "{protocol}://laravel9-zeus-base-project.zeus.vision/api/api",
             "description": "production server",
             "variables": {
-                "schema": {
+                "protocol": {
                     "enum": [
                         "https",
                         "http"

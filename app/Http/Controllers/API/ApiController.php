@@ -21,30 +21,30 @@ use App\Http\Controllers\Controller;
  * )
  *
  * @OA\Server(
- *      url="{schema}://www.laravel9-zeus-base-project.local/api",
+ *      url="{protocol}://www.laravel9-zeus-base-project.local/api",
  *      description="local server",
  *      @OA\ServerVariable(
- *          serverVariable="schema",
+ *          serverVariable="protocol",
  *          enum={"https", "http"},
  *          default="https"
  *      )
  * )
  *
  * @OA\Server(
- *      url="{schema}://laravel9-zeus-base-project.vision/api/api",
+ *      url="{protocol}://laravel9-zeus-base-project.vision/api/api",
  *      description="development server",
  *      @OA\ServerVariable(
- *          serverVariable="schema",
+ *          serverVariable="protocol",
  *          enum={"https", "http"},
  *          default="https"
  *      )
  * )
  *
  * @OA\Server(
- *      url="{schema}://laravel9-zeus-base-project.zeus.vision/api/api",
+ *      url="{protocol}://laravel9-zeus-base-project.zeus.vision/api/api",
  *      description="production server",
  *      @OA\ServerVariable(
- *          serverVariable="schema",
+ *          serverVariable="protocol",
  *          enum={"https", "http"},
  *          default="https"
  *      )
