@@ -1,0 +1,641 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Zeus-Laravel9",
+        "description": "This Api is private. To use it, contact us to generate your credentials.",
+        "contact": {
+            "email": "admin@zeus.vision"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "{schema}://www.laravel9-zeus-base-project.local/api",
+            "description": "local server",
+            "variables": {
+                "schema": {
+                    "enum": [
+                        "https",
+                        "http"
+                    ],
+                    "default": "https"
+                }
+            }
+        },
+        {
+            "url": "{schema}://laravel9-zeus-base-project.vision/api/api",
+            "description": "development server",
+            "variables": {
+                "schema": {
+                    "enum": [
+                        "https",
+                        "http"
+                    ],
+                    "default": "https"
+                }
+            }
+        },
+        {
+            "url": "{schema}://laravel9-zeus-base-project.zeus.vision/api/api",
+            "description": "production server",
+            "variables": {
+                "schema": {
+                    "enum": [
+                        "https",
+                        "http"
+                    ],
+                    "default": "https"
+                }
+            }
+        }
+    ],
+    "paths": {
+        "/register": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Register",
+                "description": "Register api.",
+                "operationId": "/register",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "email",
+                                    "password",
+                                    "c_password"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "title": "required",
+                                        "type": "string",
+                                        "example": "Manuel Sanchez"
+                                    },
+                                    "email": {
+                                        "title": "required|email",
+                                        "type": "string",
+                                        "example": "admin@zeus.vision"
+                                    },
+                                    "password": {
+                                        "title": "required|string",
+                                        "type": "string",
+                                        "example": ""
+                                    },
+                                    "c_password": {
+                                        "title": "required|same:password",
+                                        "type": "string",
+                                        "example": ""
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        },
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "email",
+                                    "password",
+                                    "c_password"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "title": "required",
+                                        "type": "string",
+                                        "example": "Manuel Sanchez"
+                                    },
+                                    "email": {
+                                        "title": "required|email",
+                                        "type": "string",
+                                        "example": "admin@zeus.vision"
+                                    },
+                                    "password": {
+                                        "title": "required|string",
+                                        "type": "string",
+                                        "example": ""
+                                    },
+                                    "c_password": {
+                                        "title": "required|same:password",
+                                        "type": "string",
+                                        "example": ""
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "example": "Successful authentication."
+                                        },
+                                        "data": {
+                                            "description": "these are the fields of the request",
+                                            "properties": {
+                                                "token_type": {
+                                                    "example": "Bearer"
+                                                },
+                                                "expires_at": {
+                                                    "example": "2022-03-02 17:10:15"
+                                                },
+                                                "access_token": {
+                                                    "example": "11|qJdB9zfmvWUEnKhxNExfYogIA7CZvUx7MI9GvcHl"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Error: Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "example": "The given data was invalid."
+                                        },
+                                        "errors": {
+                                            "properties": {
+                                                "name": {
+                                                    "example": [
+                                                        "The name field is required."
+                                                    ]
+                                                },
+                                                "email": {
+                                                    "example": [
+                                                        "The email field is required."
+                                                    ]
+                                                },
+                                                "password": {
+                                                    "example": [
+                                                        "The password field is required."
+                                                    ]
+                                                },
+                                                "c_password": {
+                                                    "example": [
+                                                        "The c_password field is required."
+                                                    ]
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "$ref": "#/components/requestBodies/response_500"
+                    }
+                }
+            }
+        },
+        "/login": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Login",
+                "description": "Login api.",
+                "operationId": "/login",
+                "requestBody": {
+                    "$ref": "#/components/requestBodies/login_request"
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "example": "Successful authentication."
+                                        },
+                                        "data": {
+                                            "description": "these are the fields of the request",
+                                            "properties": {
+                                                "token_type": {
+                                                    "example": "Bearer"
+                                                },
+                                                "expires_at": {
+                                                    "example": "2022-03-02 17:10:15"
+                                                },
+                                                "access_token": {
+                                                    "example": "11|qJdB9zfmvWUEnKhxNExfYogIA7CZvUx7MI9GvcHl"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "$ref": "#/components/requestBodies/response_403"
+                    },
+                    "422": {
+                        "$ref": "#/components/requestBodies/login_response_422"
+                    },
+                    "500": {
+                        "$ref": "#/components/requestBodies/response_500"
+                    }
+                }
+            }
+        },
+        "/me": {
+            "get": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "User Auth",
+                "description": "Get authenticated user.",
+                "operationId": "/me",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "example": "Authenticated user."
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/UserResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/requestBodies/response_401"
+                    },
+                    "500": {
+                        "$ref": "#/components/requestBodies/response_500"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key": []
+                    }
+                ]
+            }
+        },
+        "/logout": {
+            "get": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Logout",
+                "description": "Logout api.",
+                "operationId": "/logout",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "example": "Session has been closed successfully."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/requestBodies/response_401"
+                    },
+                    "500": {
+                        "$ref": "#/components/requestBodies/response_500"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "UserResource": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 161
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Zeus user"
+                    },
+                    "email": {
+                        "type": "string",
+                        "example": "admin@zeus.vision"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "example": "2023-01-27T14:42:18.000000Z"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "example": "2023-01-27T19:15:23.000000Z"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "parameters": {
+            "x_localization": {
+                "name": "X-localization",
+                "in": "header",
+                "description": "Set language parameter",
+                "schema": {
+                    "type": "string",
+                    "enum": [
+                        "es",
+                        "en",
+                        "ru"
+                    ],
+                    "example": "es"
+                }
+            }
+        },
+        "requestBodies": {
+            "response_200": {
+                "description": "OK",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "example": true
+                                },
+                                "message": {
+                                    "example": "The request has been successful."
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "response_201": {
+                "description": "Successful created",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "properties": {
+                                "message": {
+                                    "example": "Server message"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "response_400": {
+                "description": "Error: Bad Request",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "example": false
+                                },
+                                "message": {
+                                    "example": "Solicitud Incorrecta"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "response_401": {
+                "description": "Error: Unauthorized",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "properties": {
+                                "message": {
+                                    "example": "Unauthenticated."
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "response_403": {
+                "description": "Error: Forbidden",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "example": false
+                                },
+                                "message": {
+                                    "example": "You do not have permissions for the requested resources"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "response_404": {
+                "description": "Error: Not Found",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "example": false
+                                },
+                                "message": {
+                                    "example": "No Encontrado"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "response_500": {
+                "description": "Error: Internal Server Error",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "example": false
+                                },
+                                "message": {
+                                    "example": "Internal Server Error"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "response_503": {
+                "description": "Error: Service Unavailable",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "example": false
+                                },
+                                "message": {
+                                    "example": "Service Unavailable"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "login_request": {
+                "required": true,
+                "content": {
+                    "multipart/form-data": {
+                        "schema": {
+                            "required": [
+                                "email",
+                                "password"
+                            ],
+                            "properties": {
+                                "email": {
+                                    "title": "required|email",
+                                    "type": "string",
+                                    "example": "admin@zeus.vision"
+                                },
+                                "password": {
+                                    "title": "required|string",
+                                    "type": "string",
+                                    "example": ""
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "application/json": {
+                        "schema": {
+                            "required": [
+                                "email",
+                                "password"
+                            ],
+                            "properties": {
+                                "email": {
+                                    "title": "required|email",
+                                    "type": "string",
+                                    "example": "admin@zeus.vision"
+                                },
+                                "password": {
+                                    "title": "required|string",
+                                    "type": "string",
+                                    "example": ""
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "login_response_422": {
+                "description": "Error: Unprocessable Entity",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean",
+                                    "example": false
+                                },
+                                "message": {
+                                    "example": "The given data was invalid."
+                                },
+                                "errors": {
+                                    "properties": {
+                                        "email": {
+                                            "example": [
+                                                "The email field is required."
+                                            ]
+                                        },
+                                        "password": {
+                                            "example": [
+                                                "The password field is required."
+                                            ]
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "securitySchemes": {
+            "api_key": {
+                "type": "apiKey",
+                "description": "Enter token in format (Bearer {token})",
+                "name": "Authorization",
+                "in": "header"
+            }
+        }
+    },
+    "externalDocs": {
+        "description": "Zeus-Laravel9",
+        "url": ""
+    }
+}

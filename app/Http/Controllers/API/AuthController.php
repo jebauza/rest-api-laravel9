@@ -22,6 +22,62 @@ class AuthController extends ApiController
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
+    /**
+     * @OA\Post(
+     *      path="/register",
+     *      operationId="/register",
+     *      tags={"Auth"},
+     *      summary="Register",
+     *      description="Register api.",
+     *
+     *      @OA\RequestBody(required=true,
+     *          @OA\JsonContent(
+     *              required={"name","email","password","c_password"},
+     *              @OA\Property(property="name", type="string", example="Manuel Sanchez", title="required"),
+     *              @OA\Property(property="email", type="string", example="admin@zeus.vision", title="required|email"),
+     *              @OA\Property(property="password", type="string", example="", title="required|string"),
+     *              @OA\Property(property="c_password", type="string", example="", title="required|same:password")
+     *          ),
+     *          @OA\MediaType(
+     *              mediaType="multipart/form-data",
+     *              @OA\Schema(
+     *                  required={"name","email","password","c_password"},
+     *                  @OA\Property(property="name", type="string", example="Manuel Sanchez", title="required"),
+     *                  @OA\Property(property="email", type="string", example="admin@zeus.vision", title="required|email"),
+     *                  @OA\Property(property="password", type="string", example="", title="required|string"),
+     *                  @OA\Property(property="c_password", type="string", example="", title="required|same:password")
+     *              )
+     *          ),
+     *      ),
+     *
+     *      @OA\Response(response=200, description="OK",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="success", type="boolean", example=true),
+     *              @OA\Property(property="message", example="Successful authentication."),
+     *              @OA\Property(property="data", description="these are the fields of the request",
+     *                  @OA\Property(property="token_type", example="Bearer"),
+     *                  @OA\Property(property="expires_at", example="2022-03-02 17:10:15"),
+     *                  @OA\Property(property="access_token", example="11|qJdB9zfmvWUEnKhxNExfYogIA7CZvUx7MI9GvcHl"),
+     *              )
+     *          )
+     *      ),
+     *
+     *      @OA\Response(response=422, description="Error: Unprocessable Entity",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="success", type="boolean", example=false),
+     *              @OA\Property(property="message", example="The given data was invalid."),
+     *              @OA\Property(property="errors",
+     *                  @OA\Property(property="name", example={"The name field is required."}),
+     *                  @OA\Property(property="email", example={"The email field is required."}),
+     *                  @OA\Property(property="password", example={"The password field is required."}),
+     *                  @OA\Property(property="c_password", example={"The c_password field is required."}),
+     *              )
+     *          )
+     *      ),
+     *
+     *      @OA\Response(response=500, ref="#/components/requestBodies/response_500"),
+     * )
+     */
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -44,7 +100,6 @@ class AuthController extends ApiController
 
             DB::commit();
             return $this->sendResponse(new UserResource($newUser), __('User register successfully'));
-
         } catch (\Exception $e) {
             DB::rollBack();
             return $this->sendError(null, $e->getMessage(), 500, $e);
@@ -56,6 +111,35 @@ class AuthController extends ApiController
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
+     */
+    /**
+     * @OA\Post(
+     *      path="/login",
+     *      operationId="/login",
+     *      tags={"Auth"},
+     *      summary="Login",
+     *      description="Login api.",
+     *
+     *      @OA\RequestBody(ref="#/components/requestBodies/login_request"),
+     *
+     *      @OA\Response(response=200, description="OK",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="success", type="boolean", example=true),
+     *              @OA\Property(property="message", example="Successful authentication."),
+     *              @OA\Property(property="data", description="these are the fields of the request",
+     *                  @OA\Property(property="token_type", example="Bearer"),
+     *                  @OA\Property(property="expires_at", example="2022-03-02 17:10:15"),
+     *                  @OA\Property(property="access_token", example="11|qJdB9zfmvWUEnKhxNExfYogIA7CZvUx7MI9GvcHl"),
+     *              )
+     *          )
+     *      ),
+     *
+     *      @OA\Response(response=403, ref="#/components/requestBodies/response_403"),
+     *
+     *      @OA\Response(response=422, ref="#/components/requestBodies/login_response_422"),
+     *
+     *      @OA\Response(response=500, ref="#/components/requestBodies/response_500"),
+     * )
      */
     public function login(LoginRequest $request)
     {
@@ -99,6 +183,28 @@ class AuthController extends ApiController
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
+    /**
+     * @OA\Get(
+     *      path="/me",
+     *      operationId="/me",
+     *      tags={"Auth"},
+     *      summary="User Auth",
+     *      description="Get authenticated user.",
+     *      security={{"api_key": {}}},
+     *
+     *      @OA\Response(response=200, description="OK",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="success", type="boolean", example=true),
+     *              @OA\Property(property="message", example="Authenticated user."),
+     *              @OA\Property(property="data", ref="#/components/schemas/UserResource"),
+     *          )
+     *      ),
+     *
+     *      @OA\Response(response=401, ref="#/components/requestBodies/response_401"),
+     *
+     *      @OA\Response(response=500, ref="#/components/requestBodies/response_500"),
+     * )
+     */
     public function authUser(Request $request)
     {
         try {
@@ -114,6 +220,27 @@ class AuthController extends ApiController
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
+     */
+    /**
+     * @OA\Get(
+     *      path="/logout",
+     *      operationId="/logout",
+     *      tags={"Auth"},
+     *      summary="Logout",
+     *      description="Logout api.",
+     *      security={{"api_key": {}}},
+     *
+     *      @OA\Response(response=200, description="OK",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="success", type="boolean", example=true),
+     *              @OA\Property(property="message", example="Session has been closed successfully."),
+     *          )
+     *      ),
+     *
+     *      @OA\Response(response=401, ref="#/components/requestBodies/response_401"),
+     *
+     *      @OA\Response(response=500, ref="#/components/requestBodies/response_500"),
+     * )
      */
     public function logout(Request $request)
     {
