@@ -8,15 +8,15 @@ use App\Http\Controllers\Controller;
 /**
  * @OA\Info(
  *      version="1.0.0",
- *      title="Zeus-Laravel9",
- *      description="This Api is private. To use it, contact us to generate your credentials.",
+ *      title="{Zeus-Laravel9} API",
+ *      description="{Zeus-Laravel9} offers a suite of APIs that allow developers to extend the platform’s built-in features. Our APIs are designed to enable teams of any shape or size to build robust integrations that help them customize and get the most value out of {Zeus-Laravel9}. <br/><br/>All {Zeus-Laravel9} APIs are built using REST conventions and designed to have a predictable URL structure. They use many standard HTTP features, including methods (POST, GET, PUT, DELETE) and error response codes. All {Zeus-Laravel9} API calls are made under https://{zeus-Laravel9}.zeus.vision/api/api and all responses return standard JSON.",
  *      @OA\Contact(
  *          email="admin@zeus.vision"
  *      )
  * )
  *
  * @OA\ExternalDocumentation(
- *     description="Zeus-Laravel9",
+ *     description="{Zeus-Laravel9}",
  *     url=""
  * )
  *
@@ -31,7 +31,7 @@ use App\Http\Controllers\Controller;
  * )
  *
  * @OA\Server(
- *      url="{protocol}://laravel9-zeus-base-project.vision/api/api",
+ *      url="{protocol}://zeus-Laravel9.vision/api/api",
  *      description="development server",
  *      @OA\ServerVariable(
  *          serverVariable="protocol",
@@ -41,7 +41,7 @@ use App\Http\Controllers\Controller;
  * )
  *
  * @OA\Server(
- *      url="{protocol}://laravel9-zeus-base-project.zeus.vision/api/api",
+ *      url="{protocol}://zeus-Laravel9.zeus.vision/api/api",
  *      description="production server",
  *      @OA\ServerVariable(
  *          serverVariable="protocol",
