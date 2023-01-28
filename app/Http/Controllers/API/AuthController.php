@@ -33,8 +33,8 @@ class AuthController extends ApiController
      *      @OA\RequestBody(required=true,
      *          @OA\JsonContent(
      *              required={"name","email","password","c_password"},
-     *              @OA\Property(property="name", type="string", example="Manuel Sanchez", title="required"),
-     *              @OA\Property(property="email", type="string", example="admin@zeus.vision", title="required|email"),
+     *              @OA\Property(property="name", type="string", example="Admin Zeus", title="required|string"),
+     *              @OA\Property(property="email", type="string", example="admin@zeus.vision", title="required|email|unique:users,email"),
      *              @OA\Property(property="password", type="string", example="", title="required|string"),
      *              @OA\Property(property="c_password", type="string", example="", title="required|same:password")
      *          ),
@@ -42,8 +42,8 @@ class AuthController extends ApiController
      *              mediaType="multipart/form-data",
      *              @OA\Schema(
      *                  required={"name","email","password","c_password"},
-     *                  @OA\Property(property="name", type="string", example="Manuel Sanchez", title="required"),
-     *                  @OA\Property(property="email", type="string", example="admin@zeus.vision", title="required|email"),
+     *                  @OA\Property(property="name", type="string", example="Admin Zeus", title="required|string"),
+     *                  @OA\Property(property="email", type="string", example="admin@zeus.vision", title="required|email|unique:users,email"),
      *                  @OA\Property(property="password", type="string", example="", title="required|string"),
      *                  @OA\Property(property="c_password", type="string", example="", title="required|same:password")
      *              )
@@ -81,9 +81,9 @@ class AuthController extends ApiController
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required',
+            'name' => 'required|string',
             'email' => 'required|email|unique:users,email',
-            'password' => 'required',
+            'password' => 'required|string',
             'c_password' => 'required|same:password',
         ]);
 

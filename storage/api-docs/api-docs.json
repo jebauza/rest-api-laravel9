@@ -71,12 +71,12 @@
                                 ],
                                 "properties": {
                                     "name": {
-                                        "title": "required",
+                                        "title": "required|string",
                                         "type": "string",
-                                        "example": "Manuel Sanchez"
+                                        "example": "Admin Zeus"
                                     },
                                     "email": {
-                                        "title": "required|email",
+                                        "title": "required|email|unique:users,email",
                                         "type": "string",
                                         "example": "admin@zeus.vision"
                                     },
@@ -104,12 +104,12 @@
                                 ],
                                 "properties": {
                                     "name": {
-                                        "title": "required",
+                                        "title": "required|string",
                                         "type": "string",
-                                        "example": "Manuel Sanchez"
+                                        "example": "Admin Zeus"
                                     },
                                     "email": {
-                                        "title": "required|email",
+                                        "title": "required|email|unique:users,email",
                                         "type": "string",
                                         "example": "admin@zeus.vision"
                                     },
