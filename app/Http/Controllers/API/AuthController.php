@@ -107,7 +107,7 @@ class AuthController extends ApiController
     }
 
     /**
-     * Login api
+     * Login api.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
@@ -178,7 +178,7 @@ class AuthController extends ApiController
     }
 
     /**
-     * Get authUser api
+     * Get authUser api.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
@@ -216,7 +216,7 @@ class AuthController extends ApiController
     }
 
     /**
-     * Logout api
+     * Logout api.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
